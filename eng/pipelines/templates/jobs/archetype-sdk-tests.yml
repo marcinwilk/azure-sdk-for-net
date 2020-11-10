@@ -58,13 +58,6 @@ jobs:
       ${{ if contains(parameters.Clouds, 'AzureCloud') }}:
         AzureCloud:
           SubscriptionConfiguration: ${{ parameters.SubscriptionConfiguration }}
-          ArmTemplateParameters: >-
-            @{ keyVaultDomainSuffix = '.vault.azure.net';
-            storageEndpointSuffix = 'core.windows.net';
-            endpointSuffix = '.cognitiveservices.azure.com';
-            azureAuthorityHost = 'https://login.microsoftonline.com/';
-            keyVaultEndpointSuffix = '.vault.azure.net'
-            }
           EnvVars:
             SERVICE_MANAGEMENT_URL: https://management.core.windows.net/
             STORAGE_ENDPOINT_SUFFIX: core.windows.net
@@ -74,14 +67,6 @@ jobs:
       ${{ if contains(parameters.Clouds, 'AzureUsGovCloud') }}:
         AzureUsGovCloud:
           SubscriptionConfiguration: $(sub-config-gov-test-resources)
-          ArmTemplateParameters: >-
-            @{ keyVaultDomainSuffix = '.vault.usgovcloudapi.net';
-            storageEndpointSuffix = 'core.usgovcloudapi.net';
-            endpointSuffix = '.cognitiveservices.azure.us';
-            azureAuthorityHost = 'https://login.microsoftonline.us/';
-            keyVaultEndpointSuffix = '.vault.usgovcloudapi.net';
-            enableStorageVersioning = $false
-            }
           EnvVars:
             AZURE_AUTHORITY_HOST: https://login.microsoftonline.us
             RESOURCE_MANAGER_URL: https://management.usgovcloudapi.net/
@@ -92,16 +77,6 @@ jobs:
       ${{ if contains(parameters.Clouds, 'AzureChinaCloud') }}:
         AzureChinaCloud:
           SubscriptionConfiguration: $(sub-config-cn-test-resources)
-          ArmTemplateParameters: >-
-            @{ keyVaultDomainSuffix = '.vault.azure.cn';
-            storageEndpointSuffix = 'core.chinacloudapi.cn';
-            azureAuthorityHost = 'https://login.chinacloudapi.cn/';
-            keyVaultEndpointSuffix = '.vault.azure.cn';
-            keyVaultSku = 'standard';
-            enableStorageVersioning = $false;
-            endpointSuffix = '.cognitiveservices.azure.cn';
-            textAnalyticsSku = 'S'
-            }
           EnvVars:
             AZURE_AUTHORITY_HOST: https://login.chinacloudapi.cn
             SERVICE_MANAGEMENT_URL: https://management.core.chinacloudapi.cn/
@@ -132,11 +107,11 @@ jobs:
       - DisplayName: "Test on MacOS"
         OSVmImage: "macOS-10.15"
         TestTargetFramework: netcoreapp2.1
-      - ${{ if eq(parameters.TestCanary, 'true') }}:          
+      - ${{ if eq(parameters.TestCanary, 'true') }}:
         - DisplayName: "Test on Windows for NetCoreApp - Canary region"
           OSVmImage: "windows-2019"
           TestTargetFramework: netcoreapp2.1
-          SubscriptionConfiguration: $(sub-config-azure-cloud-test-resources-preview)            
+          SubscriptionConfiguration: $(sub-config-azure-cloud-test-resources-preview)
           Location: ${{ parameters.ResourceGroupLocationCanary }}
       - DisplayName: "Record on Windows for NetCoreApp"
         OSVmImage: "windows-2019"

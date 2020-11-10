@@ -70,7 +70,7 @@ jobs:
               Location: ${{ coalesce(parameters.Location, cloudConfig.value.Location, 'westus2') }}
               ServiceDirectory: '${{ parameters.ServiceDirectory }}'
               SubscriptionConfiguration: ${{ cloudConfig.value.SubscriptionConfiguration }}
-              ArmTemplateParameters: ${{ cloudConfig.value.ArmTemplateParameters }}
+              ArmTemplateParameters: ${{ platform.AdditionalParameters }}
 
           - script: >
               dotnet test eng/service.proj
