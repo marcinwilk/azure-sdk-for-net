@@ -42,6 +42,13 @@ steps:
         ${{ parameters.SubscriptionConfiguration }}
       '@ | ConvertFrom-Json -AsHashtable;
 
+      if ('${{ parameters.ArmTemplateParameters }}') {
+        $arm = ${{ parameters.ArmTemplateParameters }}
+        Write-Host "BBP"
+        Write-Host $arm.Keys
+        Write-Host $arm.bbp
+      }
+
       # The subscriptionConfiguration may have ArmTemplateParameters defined, so
       # pass those in via the ArmTemplateParameters flag, and handle any
       # additional parameters from the pipelines via AdditionalParameters

@@ -16,6 +16,7 @@ extends:
         TestTargetFramework: 'netcoreapp2.1'
         Container: 'ubuntu_netcore_keyring'
         SupportedClouds: 'Public,Canary,Preview'
+        ArmTemplateParameters: '@{ bbp = "foobar"; }'
     ServiceDirectory: identity
     PreSteps:
       - pwsh: Install-Module -Name Az -Scope CurrentUser -AllowClobber -Force -Verbose
